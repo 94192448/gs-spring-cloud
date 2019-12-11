@@ -20,8 +20,6 @@
         <module>eureka</module>
         <module>gs-consumer</module>
         <module>gs-provider</module>
-        <module>sleuth-webmvc-example</module>
-        <module>sleuth-messaging-example</module>
     </modules>
 
     <properties>

@@ -1,83 +1,49 @@
 # gs-spring-cloud
-examples of spring-cloud-sleuth tracing for RabbitMQ and kafka.
+examples of spring-cloud-sleuth tracing for local logs.
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
 | Finchley.SR4 | 2.0.9.RELEASE | 
 
-# Tracing for Messaging
+# getting started
+启动后访问示例web端口 ```curl http://127.0.0.1:9002/user``` 则生成本地tracing日志
 
-* We instrument the `RabbitTemplate` so that tracing headers get injected into the message.
+# guides
+* 通过自定义 `zipkin2.reporter.Reporter`与`zipkin2.reporter.Sender` 将tracing日志Reporter到本地log
 
-To block this feature, set spring.sleuth.messaging.rabbit.enabled to false.
-
-* We instrument the Spring Kafka’s `ProducerFactory` and `ConsumerFactory` so that tracing headers get injected into the created Spring Kafka’s Producer and Consumer.
-
-To block this feature, set spring.sleuth.messaging.kafka.enabled to false
-
-# Tracing for web
-TracingClientHttpRequestInterceptor
 ```
-@Override public ClientHttpResponse intercept(HttpRequest request, byte[] body,
-      ClientHttpRequestExecution execution) throws IOException {
-    Span span = handler.handleSend(injector, request.getHeaders(), request);
-    ClientHttpResponse response = null;
-    Throwable error = null;
-    try (Tracer.SpanInScope ws = tracer.withSpanInScope(span)) {
-      return response = execution.execute(request, body);
-    } catch (IOException | RuntimeException | Error e) {
-      error = e;
-      throw e;
-    } finally {
-      handler.handleReceive(response, error, span);
-    }
-  }
-```
-
-# Tracer
-Returns a new child span if there's a currentSpan() or a new trace if there isn't.
-Prefer startScopedSpan(String) if you are tracing a synchronous function or code block.
-```
-public Span nextSpan() {
-    TraceContext parent = currentTraceContext.get();
-    return parent != null ? newChild(parent) : newTrace();
-  }
-```
-
-# TracingFilter
-You can also modify the behavior of the TracingFilter, which is the component that is responsible for processing the input HTTP request and adding tags basing on the HTTP response. You can customize the tags or modify the response headers by registering your own instance of the TracingFilter bean.
-
-In the following example, we register the TracingFilter bean, add the ZIPKIN-TRACE-ID response header containing the current Span’s trace id, and add a tag with key custom and a value tag to the span.
-```
-@Component
-@Order(TraceWebServletAutoConfiguration.TRACING_FILTER_ORDER + 1)
-class MyFilter extends GenericFilterBean {
-
-    private final Tracer tracer;
-
-    MyFilter(Tracer tracer) {
-        this.tracer = tracer;
+    @Bean("reporter")
+    Reporter<Span> myReporter() {
+        return AsyncReporter.create(mySender());
     }
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
-        Span currentSpan = this.tracer.currentSpan();
-        if (currentSpan == null) {
-            chain.doFilter(request, response);
-            return;
-        }
-        // for readability we're returning trace id in a hex form
-        ((HttpServletResponse) response).addHeader("ZIPKIN-TRACE-ID",
-                currentSpan.context().traceIdString());
-        // we can also add some custom tags
-        currentSpan.tag("custom", "tag");
-        chain.doFilter(request, response);
+    //@Bean(ZipkinAutoConfiguration.SENDER_BEAN_NAME)
+    @Bean("sender")
+    MySender mySender() {
+
+        return new MySender();
     }
-
-}
-
 ```
+* logback-spring.xml中配置`reporter日志`到文件夹
+```
+    <logger name="com.example.ZipkinCustomConfig" level="${logging.level}" additivity="true">
+        <appender-ref ref="appender-trace" />
+    </logger>
+```
+
+
+# dependencies
+```
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+```
+
 
 # links
 https://cloud.spring.io/spring-cloud-static/Finchley.SR4/single/spring-cloud.html
