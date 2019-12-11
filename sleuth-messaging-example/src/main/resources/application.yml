@@ -9,4 +9,11 @@ spring:
   sleuth:
     sampler:
       probability: 1
-logging.level.org.springframework.web: DEBUG
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: gs-topic
+        output:
+          destination: gs-topic
+#logging.level.org.springframework.web: DEBUG

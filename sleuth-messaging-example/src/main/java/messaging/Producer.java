@@ -5,12 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
-import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @EnableScheduling
-public class TracingRabbit {
+public class Producer {
     public static void main(String[] args) {
-        SpringApplication.run(TracingRabbit.class,args);
+        SpringApplication.run(Producer.class,args);
     }
 
     @Autowired
@@ -38,7 +35,7 @@ public class TracingRabbit {
     @GetMapping("/")
     public void test(){
         send();
-        log.info("webmvc send t - {}",i);
+        log.info("webmvc send - {}",i);
     }
 
 

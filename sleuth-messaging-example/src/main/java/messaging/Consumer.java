@@ -25,7 +25,7 @@ public class Consumer {
     }
 
 
-    @StreamListener(Processor.OUTPUT)
+    @StreamListener(Processor.INPUT)
     public void handle(String person) {
         log.info("mq received - {}",person);
     }

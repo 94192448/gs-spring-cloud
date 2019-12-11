@@ -8,25 +8,39 @@ package webmvc;
  * @see
  * @since 1.0.0
  */
+import brave.Tracer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@EnableAutoConfiguration
+@SpringBootApplication
 @RestController
 @CrossOrigin // So that javascript can be hosted elsewhere
+@Slf4j
 public class Frontend {
 
     @Autowired RestTemplate restTemplate;
 
     String backendBaseUrl = System.getProperty("spring.example.backendBaseUrl", "http://localhost:9000");
+        @Autowired
+        Tracer tracer;
 
     @RequestMapping("/") public String callBackend() {
+
+        tracer.currentSpan().context();
+
+        log.info("aa");
+
+        try (Tracer.SpanInScope cleared = tracer.withSpanInScope(null)) {
+        }
+        log.info("frontend msg...");
         return restTemplate.getForObject(backendBaseUrl + "/api", String.class);
     }
 
