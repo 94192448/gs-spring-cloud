@@ -1,10 +1,12 @@
-spring:
-  application:
-    name: eureka
 server:
   port: 8761
 
 eureka:
   instance:
     metadata-map:
-      version: "Greenwich.SR1"
+      version: "Finchley.SR4"
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0
