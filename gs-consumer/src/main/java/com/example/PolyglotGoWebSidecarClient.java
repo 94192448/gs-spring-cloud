@@ -11,10 +11,10 @@ import java.util.List;
  * @author : yangzq80@gmail.com
  * @date: 2019-05-06
  */
-@FeignClient("gs-provider")
-public interface ProviderClient {
+@FeignClient("polyglot-go-web-sidecar")
+public interface PolyglotGoWebSidecarClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user")
+    @RequestMapping(method = RequestMethod.GET, value = "/test-remote")
     List<User> getUsers();
 
     @RequestMapping(method = RequestMethod.POST, value = "/user/{userId}", consumes = "application/json")

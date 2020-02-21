@@ -1,9 +1,13 @@
 spring:
   application:
-    name: polyglot-go-web-sidecar
+    name: polyglot-sidecar
 
 server:
   port: 3001
+
+sidecar:
+  port: 3000
+  health-uri: http://localhost:3000/health.json
 
 eureka:
   client:
@@ -23,7 +27,3 @@ logging:
             DispatcherServlet: DEBUG
         cloud:
           sleuth: DEBUG
-
-sidecar:
-  port: 3000
-  health-uri: http://localhost:3000/health.json

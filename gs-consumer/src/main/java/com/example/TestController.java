@@ -17,14 +17,14 @@ import java.util.List;
 @Slf4j
 public class TestController {
     @Resource
-    ProviderClient providerClient;
+    PolyglotGoWebSidecarClient polyglotGoWebSidecarClient;
 
     @GetMapping("/user")
     public List<User> getUsers(){
         ZoneAvoidanceRule zoneAvoidanceRule;
         DynamicServerListLoadBalancer dynamicServerListLoadBalancer;
         log.info("get user--->");
-        return providerClient.getUsers();
+        return polyglotGoWebSidecarClient.getUsers();
     }
 
     @GetMapping("/base")
