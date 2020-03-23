@@ -29,6 +29,11 @@ func main() {
     r.GET("/test", func(c *gin.Context) {
         c.JSON(http.StatusOK,gin.H{"name":"go-test"})
     })
+    r.GET("/test-env", func(c *gin.Context) {
+        c.JSON(http.StatusOK,gin.H{"name":"go-test"})
+    })
+
+    ///env/type
 
     //通过spring-cloud-netflix-sidecar集成的zuul proxy远程调用微服务
     r.GET("/test-remote", func(c *gin.Context) {

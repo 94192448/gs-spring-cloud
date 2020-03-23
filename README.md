@@ -28,6 +28,7 @@ examples of spring-cloud-netflix-sidecar.
 * 异构系统无法通过ribbon访问其他service,通过sidecar提供的Zuul proxy访问其他微服务
 * 一个sidecar仅能代理一个instance
 * 其他微服务通过feign-client调用sidecar代理的non-JVM application
+* 配置中心属性访问支持zuul proxy到配置服务，actuator暴露env端点，sidecar服务手动@Value获取后暴露
 
 # Tests
 * gs-proider提供用户接口 
