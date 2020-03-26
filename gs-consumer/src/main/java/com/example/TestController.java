@@ -19,6 +19,11 @@ public class TestController {
     @Resource
     ProviderClient providerClient;
 
+    @GetMapping("/test")
+    public String test(){
+        return "test success";
+    }
+
     @GetMapping("/user")
     public List<User> getUsers(){
         ZoneAvoidanceRule zoneAvoidanceRule;
