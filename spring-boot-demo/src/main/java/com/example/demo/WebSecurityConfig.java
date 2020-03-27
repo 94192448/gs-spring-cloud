@@ -1,11 +1,12 @@
 package com.example.demo;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-//@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = true)
 //@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -24,10 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "Content-Security-Policy","script-src 'self';report-uri /csp-report"))
 
                     //Strict-Transport-Security: max-age=31536000 ; includeSubDomains ; preload
-                    //.httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
+                    .httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
 
-                .and()
-                    .headers().referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
+                .and().referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
 
         http.authorizeRequests().antMatchers("/user").permitAll();
     }
