@@ -1,12 +1,11 @@
 package com.example.demo;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 //@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -17,16 +16,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                     .csrf().ignoringAntMatchers("/**")
-                .and()
+
 
                     //X-Frame-Options: SAMEORIGIN
-                    .headers().frameOptions().sameOrigin()
+                .and().headers().frameOptions().sameOrigin()
+                    .addHeaderWriter(new StaticHeadersWriter(
+                        "Content-Security-Policy","script-src 'self';report-uri /csp-report"))
 
                     //Strict-Transport-Security: max-age=31536000 ; includeSubDomains ; preload
-                    .httpStrictTransportSecurity().maxAgeInSeconds(31536000L).and()
+                    //.httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
 
-                    .addHeaderWriter(new StaticHeadersWriter(
-                            "Content-Security-Policy","script-src 'self';report-uri /csp-report"))
                 .and()
                     .headers().referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
 
