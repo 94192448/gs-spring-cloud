@@ -25,9 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "Content-Security-Policy","script-src 'self';report-uri /csp-report"))
 
                     //Strict-Transport-Security: max-age=31536000 ; includeSubDomains ; preload
-                    .httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
+                .addHeaderWriter(new StaticHeadersWriter("Strict-Transport-Security","max-age=31536000 ; includeSubDomains ; preload"))
+                    //.httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
 
-                .and().referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
+                .addHeaderWriter(new StaticHeadersWriter("referrer-policy","origin-when-cross-origin, strict-origin-when-cross-origin"))
+
+
+                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
 
         http.authorizeRequests().antMatchers("/user").permitAll();
     }
