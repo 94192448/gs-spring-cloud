@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.com.yusys.security.web.headers.HeadersSecurityAutoConfiguration,\
+cn.com.yusys.security.web.injection.SQLInjectionAutoConfiguration

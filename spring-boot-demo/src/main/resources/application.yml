@@ -3,3 +3,11 @@ spring:
     name: spring-boot-demo
 server:
   port: 9004
+
+yusp:
+  security:
+    headers:
+      #xss: abc
+      csrf: /tests,/users
+    sql-injection:
+      enabled: true

@@ -1,8 +1,5 @@
 package com.example.demo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -26,11 +23,5 @@ public class UserController {
         return user;
     }
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public class User {
-        Long id;
-        String name;
-    }
+
 }

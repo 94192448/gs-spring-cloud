@@ -1,12 +1,11 @@
 package com.example.demo;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 //@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -26,10 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     //Strict-Transport-Security: max-age=31536000 ; includeSubDomains ; preload
                 .addHeaderWriter(new StaticHeadersWriter("Strict-Transport-Security","max-age=31536000 ; includeSubDomains ; preload"))
-                    //.httpStrictTransportSecurity().maxAgeInSeconds(31536000L)
+                    //.httpStrictTransportSecurity().includeSubdomains(true).maxAgeInSeconds(31536000L)
 
                 .addHeaderWriter(new StaticHeadersWriter("referrer-policy","origin-when-cross-origin, strict-origin-when-cross-origin"))
 
+                .addHeaderWriter(new StaticHeadersWriter("Feature-Policy","vibrate 'self'; sync-xhr 'self'"))
 
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN);
 
