@@ -12,6 +12,11 @@
 * [gs-consumer](./gs-consumer) - 通过feign-client调用gs-provider
 * [spring-boot-demo](./spring-boot-demo) - 简单spring-boot服务,集成Security Headers
 
+## security
+| Key |	Default Value | Description |
+| :--- | :---: | :---: |
+|spring.security.ext-headers.xss|X-XSS-Protection: 1; mode=block||
+
 ## Features
 * 最基本customer与provider访问demo
 

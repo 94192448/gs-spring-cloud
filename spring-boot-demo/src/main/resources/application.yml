@@ -7,7 +7,16 @@ server:
 yusp:
   security:
     headers:
-      #xss: abc
+      xss: abc
+      hsts:
       csrf: /tests,/users
+      content-type-options: 1
+      csp:
+      feature-policy:
+      frame-options:
+      referrer-policy:
+      cache-control:
+
     sql-injection:
       enabled: true
+      regex:

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cn.com.yusys</groupId>
 	<artifactId>yusp-security-autoconfigure</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0.RELEASE</version>
 	<description>Security project for Spring Boot Application</description>
 	<packaging>jar</packaging>
 

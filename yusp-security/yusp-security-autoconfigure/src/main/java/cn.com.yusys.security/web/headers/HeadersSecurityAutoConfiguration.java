@@ -32,6 +32,7 @@ public class HeadersSecurityAutoConfiguration extends WebSecurityConfigurerAdapt
 
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).requireCsrfProtectionMatcher(csrfRequestMatcher)
 
+                // disable the default settings of spring-security
                 .and().headers().contentTypeOptions().disable().frameOptions().disable().xssProtection().disable().cacheControl().disable()
 
                 .addHeaderWriter(new StaticHeadersWriter(

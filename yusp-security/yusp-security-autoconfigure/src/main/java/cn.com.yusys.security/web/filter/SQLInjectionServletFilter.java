@@ -9,7 +9,7 @@ import java.util.Enumeration;
 import java.util.regex.Pattern;
 
 /**
- * 防止参数中SQL注入的过滤器
+ * 防止参数中SQL注入的Servlet过滤器
  * @author yangzq80@gmail.com
  * @date 2020-04-07 09:48
  */
@@ -33,9 +33,9 @@ public class SQLInjectionServletFilter implements Filter {
             throws IOException, ServletException {
         Enumeration<String> params = servletRequest.getParameterNames();
         while (params.hasMoreElements()) {
-            //得到参数名
+
             String name = params.nextElement();
-            //得到参数对应值
+
             String[] value = servletRequest.getParameterValues(name);
             for (int i = 0; i < value.length; i++) {
                 if (!isValid(value[i])) {
