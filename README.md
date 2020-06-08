@@ -1,5 +1,4 @@
-# gs-spring-cloud-base
-最基本customer与provider访问demo.
+# spring-cloud-gateway动态路由(金丝雀发布 / 灰度发布)
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
