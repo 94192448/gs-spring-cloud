@@ -18,8 +18,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>eureka</module>
-        <module>gs-consumer</module>
-        <module>gs-provider</module>
+        <module>service-a</module>
+        <module>service-b-webflux</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
