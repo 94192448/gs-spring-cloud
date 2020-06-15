@@ -1,4 +1,4 @@
-package com.example;
+package com.example.ribbon;
 
 import com.google.common.base.Optional;
 import com.netflix.loadbalancer.ILoadBalancer;

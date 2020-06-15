@@ -1,4 +1,4 @@
-package com.example;
+package com.example.ribbon;
 
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020-06-09
  */
 @Configuration
-@RibbonClients(defaultConfiguration = VersionRuleConfig.class)
+@RibbonClients(defaultConfiguration = WeightZoneAvoidanceRule.class)
 public class RibbonClientConfig {
 }

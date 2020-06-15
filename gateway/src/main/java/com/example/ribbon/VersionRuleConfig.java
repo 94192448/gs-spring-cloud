@@ -1,4 +1,4 @@
-package com.example;
+package com.example.ribbon;
 
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.IRule;
