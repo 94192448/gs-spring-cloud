@@ -11,15 +11,10 @@
 * [service-a](./service-a) - 注册到eureka的微服务
 * [service-b](./service-b) - 通过feign-client调用 service-a
 * [gateway-zuul](./gateway-zuul) - zuul网关
-* [spring-boot-demo](./spring-boot-demo) - 简单spring-boot服务,集成Security Headers
-
-## security
-| Key |	Default Value | Description |
-| :--- | :---: | :---: |
-|spring.security.ext-headers.xss|X-XSS-Protection: 1; mode=block||
 
 ## Features
-* 最基本customer与provider访问demo
+* 通过gateway-zuul网关访问后端service-a,service-b
+* service-b访问service-a
 
 ## Test 
 
