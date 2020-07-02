@@ -11,7 +11,7 @@ import java.util.List;
  * @author : yangzq80@gmail.com
  * @date: 2019-05-06
  */
-@FeignClient("gs-provider")
+@FeignClient("service-b")
 public interface ProviderClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/user")
