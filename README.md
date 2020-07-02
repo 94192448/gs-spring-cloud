@@ -1,9 +1,12 @@
 # gs-spring-cloud-base
-最基本customer与provider访问demo.
+验证zuul url rewrite
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
 | Finchley.SR4 | 2.0.9.RELEASE | 
+
+## TODO
+- DiscoveryClientRouteLocator 中 locateRoutes 读取 properties 中配置的rewrite 进行处理
 
 ## Modules
 
