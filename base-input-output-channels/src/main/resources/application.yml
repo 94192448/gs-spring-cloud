@@ -1,0 +1,13 @@
+spring:
+  rabbitmq:
+    host: localhost
+    username: admin
+    password: admin
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: payment #要和output的destination一致, 这样才能将队列和写入消息的exchange关联起来
+          group: paymentQueue
+server:
+  port: 0

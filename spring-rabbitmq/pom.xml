@@ -9,16 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gs-provider</artifactId>
+    <artifactId>spring-rabbitmq</artifactId>
 
     <dependencies>
+        <!--rabbitmq -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.1.1</version>
         </dependency>
+        <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 

@@ -4,15 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author : yangzq80@gmail.com
- * @date: 2019-05-06
+ * @author yangzq80@gmail.com
+ * @date 2020-07-03
  */
 @SpringBootApplication
-public class ConsumerApplication {
+public class DynamicDestinationSourceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ConsumerApplication.class,args);
+        SpringApplication.run(DynamicDestinationSourceApplication.class, args);
     }
-
-
-
 }

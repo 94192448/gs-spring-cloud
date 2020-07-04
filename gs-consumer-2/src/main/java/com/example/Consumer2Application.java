@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date: 2019-05-06
  */
 @SpringBootApplication
-public class ConsumerApplication {
+public class Consumer2Application {
     public static void main(String[] args) {
-        SpringApplication.run(ConsumerApplication.class,args);
+        SpringApplication.run(Consumer2Application.class,args);
     }
 
 
