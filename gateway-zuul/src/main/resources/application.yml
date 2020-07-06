@@ -5,6 +5,13 @@ server:
   port: 80
 
 zuul:
+  routes:
+    service-a:
+      path: /system-a/domain1/**
+      stripPrefix: true
+    service-b:
+      path: /system-b/domain1/**
+      stripPrefix: true
   host:
     maxTotalConnections: 200
     maxPerRouteConnections: 20

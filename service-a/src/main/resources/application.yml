@@ -28,3 +28,8 @@ logging:
             DispatcherServlet: DEBUG
         cloud:
           sleuth: DEBUG
+
+customers:
+  routes: {system-a/domain1: service-a,system-b/domain1: service-b}
+
+
