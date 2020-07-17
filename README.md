@@ -24,15 +24,9 @@ zuul:
     service-a:
       path: /system-a/domain1/**
       stripPrefix: true
-      serviceId: service-a
-    service-a2:
-      path: /system-a/domain2/**
-      stripPrefix: true
-      serviceId: service-a
     service-b:
       path: /system-b/domain1/**
       stripPrefix: true
-      serviceId: service-b
 ```
 
 ### II Resttemplate  自定义CustomerRestTemplate重写doExecute方法中URI扩展为自定义映射关系
