@@ -24,9 +24,15 @@ zuul:
     service-a:
       path: /system-a/domain1/**
       stripPrefix: true
+      serviceId: service-a
+    service-a2:
+      path: /system-a/domain2/**
+      stripPrefix: true
+      serviceId: service-a
     service-b:
       path: /system-b/domain1/**
       stripPrefix: true
+      serviceId: service-b
 ```
 
 ### II Resttemplate  自定义CustomerRestTemplate重写doExecute方法中URI扩展为自定义映射关系
@@ -47,24 +53,73 @@ client端http请求拦截器，注册到resttemplate中修改request路径或增
     
             return restTemplate;
  ``` 
+ 
+ ### III feignclient
+ - 启动阶段 内部类FeignClientsRegistrar 根据 annotationMetadata 构造 FeignClientSpecification 注册
+ - bean注册 PostProcessorRegistrationDelegate ,刷新 RefreshAutoConfiguration  内部类 RefreshScopeBeanDefinitionEnhancer implements BeanDefinitionRegistryPostProcessor, EnvironmentAware
+    
+ - FeignAutoConfiguration将 List<FeignClientSpecification> 放到 FeignContext 中缓存
+ - NamedContextFactory 获取 FeignLoadBalancer 缓存到CachingSpringLoadBalancerFactory中
+
+ - openfeign中 LoadBalancerFeignClient 执行netflix.client中  AbstractLoadBalancerAwareClient.executeWithLoadBalancer(final S request, final IClientConfig requestConfig)
+
+从 CachingSpringLoadBalancerFactory 中获取 lb 
+
+- SynchronousMethodHandler 中组装请求响应
+
+``` 
+com.netflix.loadbalancer.reactive public class LoadBalancerCommand<T>
+extends Object
+A command that is used to produce the Observable from the load balancer execution. The load balancer is responsible for the following:
+Choose a server
+Invoke the call(com.netflix.loadbalancer.Server) method
+Invoke the ExecutionListener if any
+Retry on exception, controlled by RetryHandler
+Provide feedback to the com.netflix.loadbalancer.LoadBalancerStats
+```
+
+- 配置文件读取 @Value 注解在BeanDefinitionRegistry之后执行
+
+```Setting the value of fields annotated with @Value happens only after the post-processing of the BeanDefinitionRegistry, meaning they are not usable at this stage of the initialization process.
+
+You can however explicitly scan the configuration environment and read the relevant properties' values from there, then use them in your dynamic bean definitions.
+
+To gain access to the configuration environment, you can create your BeanDefinitionRegistryPostProcessor in a method annotated with @Bean, that takes the ConfigurableEnvironment as a parameter.
+```
+
+### IV ribbon
+- SpringClientFactory 按cleint name为每个都创建 client，load balancer 和 client configure实例
+A factory that creates client, load balancer and client configuration instances. It creates a Spring ApplicationContext per client name, and extracts the beans that it needs from there.
+- LoadBalancerCommand 
 
 ## Test 
 
-```
-# 后端service-a服务
+- 自定义映射 - feginclient
+
+curl localhost:9002/user
+
+- 自定义映射 - zuul
+
+curl http://localhost/system-a/domain1/user
+curl http://localhost/system-a/domain2/user
+- 后端service-a服务
+
 curl -d '{"name":"Trump", "id":"11"}' -H "Content-Type: application/json" -X POST http://localhost:9001/user
 
-- 
- curl localhost:9001/rewiret-resttemplate
+- 自定义服务映射 - resttemplate
 
-# 通过zuul网关访问后端service-a服务
+curl localhost:9001/rewiret-resttemplate
+
+- 通过zuul网关访问后端service-a服务
+
 curl localhost/service-a/user
 curl -d '{"name":"Trump", "id":"11"}' -H "Content-Type: application/json" -X POST http://localhost/service-a/user
 
-# service-b 自定义路由匹配规则访问结果一致
+- service-b 自定义路由匹配规则访问结果一致
+
 curl localhost/service-b/test
 curl localhost/system-a/main/test
-```
+curl localhost:9002/user
 
 ## TODO
 - DiscoveryClientRouteLocator 中 locateRoutes 读取 properties 中配置的rewrite 进行处理

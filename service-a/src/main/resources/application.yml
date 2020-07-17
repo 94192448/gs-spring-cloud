@@ -29,7 +29,22 @@ logging:
         cloud:
           sleuth: DEBUG
 
-customers:
-  routes: {system-a/domain1: service-a,system-b/domain1: service-b}
+#customers:
+#  routes: {system-a/domain1: service-a,system-b/domain1: service-b}
+
+zuul:
+  routes:
+    service-a:
+      path: /system-a/domain1/**
+      stripPrefix: true
+      serviceId: service-a
+    service-a2:
+      path: /system-a/domain2/**
+      stripPrefix: true
+      serviceId: service-a
+    service-b:
+      path: /system-b/domain1/**
+      stripPrefix: true
+      serviceId: service-b
 
 

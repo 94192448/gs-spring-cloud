@@ -11,8 +11,8 @@ import java.util.List;
  * @author : yangzq80@gmail.com
  * @date: 2019-05-06
  */
-@FeignClient("service-b")
-public interface ProviderClient {
+@FeignClient("system-a/domain2")
+public interface ServiceCClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/user")
     List<User> getUsers();
