@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: sidecar-service-b
+
+server:
+  port: 9002
+
+sidecar:
+  port: 9001
+  health-uri: http://localhost:9001/health.json
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    metadata-map:
+      version: "v1.0"
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${server.port}
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: info
+        cloud:
+          sleuth: info

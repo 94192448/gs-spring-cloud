@@ -1,0 +1,13 @@
+server:
+  port: 9002
+  # info ,debug
+  log-level: debug
+  timeout: 30
+
+eureka:
+  service-url: http://127.0.0.1:8761/eureka
+  heartbeat-interval: 30
+  eviction-duration: 90
+  sidecar:
+    app-name: service-c
+    health-uri: http://localhost:9001/health.json

@@ -20,7 +20,6 @@
         <module>eureka</module>
         <module>gateway-zuul</module>
         <module>service-a</module>
-        <module>service-b</module>
     </modules>
 
     <properties>
