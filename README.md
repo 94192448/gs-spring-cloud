@@ -1,5 +1,5 @@
-# gs-spring-cloud-base
-最基本customer与provider访问demo.
+# gs-spring-cloud-sidecar-benchmarks
+jvm-sidecar 与 go-sidecar 性能对比测试
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
