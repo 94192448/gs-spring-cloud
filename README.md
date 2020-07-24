@@ -21,11 +21,11 @@ service-a 9000
 
 service-b 9001
 
-- service-b -> service-a 
+- 单体访问微服务 service-b -> service-a 
 
 curl http://localhost:9001/test/remote
 
-- service-b <- service-a
+- 微服务访问单体 service-b <- service-a
 
 curl http://localhost:9000/test/remote
 

@@ -20,6 +20,8 @@
         <module>eureka</module>
         <module>gateway-zuul</module>
         <module>service-a</module>
+        <module>service-b-spring-boot</module>
+        <module>jvm-sidecar</module>
     </modules>
 
     <properties>
