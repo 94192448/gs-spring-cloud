@@ -1,5 +1,44 @@
-# gs-spring-cloud-base
-最基本customer与provider访问demo.
+# config-apollo
+
+携程apollo配置中心开放API访问测试
+
+- Apollo管理员在 http://{portal_address}/open/manage.html 创建第三方应用
+
+docker启动中需配置 EUREKA_INSTANCE_IP_ADDRESS
+
+``` 
+services:
+  apollo-quick-start:
+    image: nobodyiam/apollo-quick-start
+    container_name: apollo-quick-start
+    
+    environment: 
+      EUREKA_INSTANCE_IP_ADDRESS: '172.16.20.31'
+
+    depends_on:
+      - apollo-db
+    ports:
+      - "8080:8080"
+      - "8070:8070"
+    links:
+      - apollo-db
+
+```
+
+``` 
+<dependency>
+     <groupId>com.ctrip.framework.apollo</groupId>
+     <artifactId>apollo-client</artifactId>
+     <version>1.1.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.ctrip.framework.apollo</groupId>
+    <artifactId>apollo-openapi</artifactId>
+    <version>1.6.2</version>
+</dependency>
+
+```
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
@@ -8,9 +47,7 @@
 ## Modules
 
 * [eureka](./eureka) - 服务注册发现
-* [service-a](./service-a) - 注册到eureka的微服务
-* [service-b](./service-b) - 通过feign-client调用 service-a
-* [gateway-zuul](./gateway-zuul) - zuul网关
+* [service-b](./service-b) - apollo openapi使用
 
 ## Features
 * 通过gateway-zuul网关访问后端service-a,service-b
@@ -18,16 +55,7 @@
 
 ## Test 
 
-```
-# 后端service-a服务
-curl -d '{"name":"Trump", "id":"11"}' -H "Content-Type: application/json" -X POST http://localhost:9001/user
-
-# 通过zuul网关访问后端service-a服务
-curl localhost/service-a/user
-curl -d '{"name":"Trump", "id":"11"}' -H "Content-Type: application/json" -X POST http://localhost/service-a/user
-
-```
 
 ## Links
-https://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/2.2.2.RELEASE/reference/html/#netflix-zuul-reverse-proxy 
+https://github.com/ctripcorp/apollo/wiki/Apollo%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0 
 

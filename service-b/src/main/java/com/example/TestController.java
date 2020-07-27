@@ -1,13 +1,16 @@
 package com.example;
 
-import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
-import com.netflix.loadbalancer.ZoneAvoidanceRule;
+import com.ctrip.framework.apollo.Config;
+import com.ctrip.framework.apollo.model.ConfigChangeEvent;
+import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
+import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import java.util.Set;
 
 /**
  * @author : yangzq80@gmail.com
@@ -16,28 +19,30 @@ import java.util.List;
 @RestController
 @Slf4j
 public class TestController {
-    @Resource
-    ProviderClient providerClient;
+
+
+    @Value("${timeout:default-timeout}")
+    String timeout;
 
     @GetMapping("/test")
     public String test(){
-        return "test success";
+        return timeout;
     }
 
-    @GetMapping("/user")
-    public List<User> getUsers(){
-        ZoneAvoidanceRule zoneAvoidanceRule;
-        DynamicServerListLoadBalancer dynamicServerListLoadBalancer;
-        log.info("get user--->");
-        return providerClient.getUsers();
+
+    @ApolloConfig
+    private Config config;
+
+    @ApolloConfigChangeListener
+    private void onChange(ConfigChangeEvent changeEvent) {
+        refreshLoggingLevels();
     }
 
-    @GetMapping("/base")
-    public String helloSleuth(String a) {
-        if (a.equalsIgnoreCase("aa")){
-            throw new RuntimeException("base error");
+    @PostConstruct
+    private void refreshLoggingLevels() {
+        Set<String> keyNames = config.getPropertyNames();
+        for (String key : keyNames) {
+            log.info(key);
         }
-        log.info("Hello Sleuth");
-        return "success";
     }
 }
