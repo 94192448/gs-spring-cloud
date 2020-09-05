@@ -19,7 +19,6 @@
     <modules>
         <module>eureka</module>
         <module>gs-consumer</module>
-        <module>gs-provider</module>
     </modules>
 
     <properties>
