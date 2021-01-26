@@ -19,6 +19,7 @@
     <modules>
         <module>eureka</module>
         <module>gs-consumer</module>
+        <module>polyglot-sidecar</module>
     </modules>
 
     <properties>
