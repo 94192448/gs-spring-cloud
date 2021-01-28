@@ -15,14 +15,15 @@ curl http://localhost:3001/gs-consumer
 - 微服务FeignClient -> sidecar
 curl http://localhost:9002/testRemote
 
-
-# poc准备
+# POC
  - 启动sidecar java -jar polyglot-sidecar-1.0-SNAPSHOT.jar --eureka.client.serviceUrl.defaultZone=http://192.168.251.173:8761/eureka
  - 启动sidecar同主机的go应用 ./go-web-linux
  - 启动SC微服务 java -jar gs-consumer-1.0-SNAPSHOT.jar --eureka.client.serviceUrl.defaultZone=http://192.168.251.173:8761/eureka
  - SC微服务访问 -> sidecar   curl node7:9002/testRemote
  - SC微服务被访问 <- sidecar  curl node7:3001/gs-consumer/test
 
-
 # links
 https://cloud.spring.io/spring-cloud-static/Finchley.SR4/single/spring-cloud.html
+
+# zipkin下载
+https://repo1.maven.org/maven2/io/zipkin/zipkin-server/2.23.2/zipkin-server-2.23.2-exec.jar
