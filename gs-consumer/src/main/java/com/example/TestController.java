@@ -23,6 +23,7 @@ public class TestController {
     ProviderClient providerClient;
 
 
+
     @GetMapping("/user")
     public List<User> getUsers(){
         ZoneAvoidanceRule zoneAvoidanceRule;
@@ -31,12 +32,12 @@ public class TestController {
         return providerClient.getUsers();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping("/test/user")
     public List<User> users(){
         return Arrays.asList(new User(1L,"Trump"),new User(2L,"Donal2d"));
     }
 
-    @GetMapping("/testRemote")
+    @GetMapping("/test/go")
     public String testRemote(){
         return providerClient.test();
     }

@@ -38,9 +38,9 @@ func main() {
     ///env/type
 
     //通过spring-cloud-netflix-sidecar集成的zuul proxy远程调用微服务
-    r.GET("/test-remote", func(c *gin.Context) {
+    r.GET("/test/java", func(c *gin.Context) {
 
-        resp, err := http.Get(sidecarUrl+"/gs-provider/user")
+        resp, err := http.Get(sidecarUrl+"/gs-consumer/test/user")
 
         if err != nil || resp.StatusCode != http.StatusOK {
             log.Println(err.Error())
