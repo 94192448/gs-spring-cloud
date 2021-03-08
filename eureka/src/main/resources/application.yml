@@ -8,3 +8,6 @@ eureka:
   instance:
     metadata-map:
       version: "Greenwich.SR1"
+  client:
+    register-with-eureka: false
+    fetch-registry: false
