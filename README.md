@@ -2,6 +2,7 @@
 验证sleuth与sidecar
 - sidecar支持sleuth链路追踪
 - sidecar默认集成eureka服务注册发现
+- @EnableSidecar包含了@EnableCircuitBreaker, @EnableDiscoveryClient, @EnableZuulProxy
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
