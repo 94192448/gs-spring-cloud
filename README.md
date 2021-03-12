@@ -3,6 +3,7 @@
 - sidecar支持sleuth链路追踪
 - sidecar默认集成eureka服务注册发现
 - @EnableSidecar包含了@EnableCircuitBreaker, @EnableDiscoveryClient, @EnableZuulProxy
+- 异构系统通过zuul访问其他微服务,其他微服务通过feignclient直接访问到异构系统的IP+端口(sidecar将异构系统端口定义到了eureka-client中)
 
 | Release Train |  Boot Version |
 | :--- | :---: | 
