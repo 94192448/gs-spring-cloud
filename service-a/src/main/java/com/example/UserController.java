@@ -13,12 +13,16 @@ import java.util.List;
  * @date: 2019-05-06
  */
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping("/user")
     public List<User> users(){
         return Arrays.asList(new User(1L,"Trump"),new User(2L,"Donal2d"));
+    }
+
+    @RequestMapping("/")
+    public String hello(){
+        return "hello service-a";
     }
 
     @PostMapping

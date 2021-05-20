@@ -8,23 +8,36 @@ spring:
         enabled: true
 
 server:
-  port: 9001
+  port: 81
+  tomcat:
+    max-threads: 100
+    max-connections: 100000
+    accept-count: 100000
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 15
   instance:
     metadata-map:
       version: "v1.0"
     instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 30 # client心跳发送时间，表明自己存活 eureka client needs to send heartbeats to eureka server to indicate that it is still alive
+    lease-expiration-duration-in-seconds: 90 # client在eureka server中持续时间，需高于lease-renewal-interval-in-seconds避免网络故障导致状态不准确
+
 
 logging:
   level:
-    org:
-      springframework:
-        web:
-          servlet:
-            DispatcherServlet: DEBUG
-        cloud:
-          sleuth: DEBUG
+    #root: debug
+    com:
+      netflix:
+        discovery:
+          DiscoveryClient: debug
+#    org:
+#      springframework:
+#        web:
+#          servlet:
+#            DispatcherServlet: DEBUG
+#        cloud:
+#          sleuth: DEBUG

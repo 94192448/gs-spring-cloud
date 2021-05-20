@@ -20,12 +20,12 @@ public class TestController {
     ProviderClient providerClient;
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "test success";
     }
 
     @GetMapping("/user")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         ZoneAvoidanceRule zoneAvoidanceRule;
         DynamicServerListLoadBalancer dynamicServerListLoadBalancer;
         log.info("get user--->");
@@ -34,10 +34,23 @@ public class TestController {
 
     @GetMapping("/base")
     public String helloSleuth(String a) {
-        if (a.equalsIgnoreCase("aa")){
+        if (a.equalsIgnoreCase("aa")) {
             throw new RuntimeException("base error");
         }
         log.info("Hello Sleuth");
         return "success";
+    }
+
+    @GetMapping("/timer")
+    public void timer() {
+        while (true) {
+            try {
+                Thread.sleep(1000);
+                log.info("Call result--->?", providerClient.getUsers());
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
     }
 }

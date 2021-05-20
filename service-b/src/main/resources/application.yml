@@ -5,6 +5,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 11 # 刷新到本地服务注册表中
   instance:
     metadata-map:
       version: "v1.0.0"
@@ -15,8 +16,12 @@ logging:
       com:
         yusys:
           lbswitch: debug
-    org:
-      springframework:
-        web:
-          servlet:
-            DispatcherServlet: DEBUG
+    com:
+      netflix:
+        discovery:
+          DiscoveryClient: debug
+#    org:
+#      springframework:
+#        web:
+#          servlet:
+#            DispatcherServlet: DEBUG
